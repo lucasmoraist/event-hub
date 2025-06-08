@@ -1,5 +1,6 @@
 package com.lucasmoraist.event_hub.domain.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +8,21 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Schema(
+        description = "Request object for creating or updating an event",
+        requiredProperties = {"title", "description", "date", "time", "location", "capacity", "createdBy"},
+        example = """
+                {
+                    "title": "Tech Conference 2023",
+                    "description": "A conference about the latest in technology.",
+                    "date": "2023-10-15",
+                    "time": "09:00",
+                    "location": "Convention Center, Cityville",
+                    "capacity": 500,
+                    "createdBy": "admin"
+                }
+                """
+)
 public record EventsRequest(
         @NotBlank(message = "Title is required")
         String title,

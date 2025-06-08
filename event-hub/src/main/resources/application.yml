@@ -24,3 +24,6 @@ management:
       enabled: true
     mongodb:
       enabled: true
+springdoc:
+  swagger-ui:
+    path: /
