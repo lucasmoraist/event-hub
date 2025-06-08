@@ -23,4 +23,11 @@ public class Inscriptions {
     private StatusInscriptions status;
     private LocalDateTime subscribedAt;
 
+    public Inscriptions(UUID userId, UUID eventId) {
+        this.userId = userId.toString();
+        this.eventId = eventId.toString();
+        this.status = StatusInscriptions.PENDING;
+        this.subscribedAt = LocalDateTime.now();
+    }
+
 }
