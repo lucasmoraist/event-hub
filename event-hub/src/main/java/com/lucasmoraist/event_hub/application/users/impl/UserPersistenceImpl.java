@@ -10,7 +10,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -36,7 +35,7 @@ public class UserPersistenceImpl implements UserPersistence {
     }
 
     @Override
-    public UserResponse findById(UUID id) {
+    public UserResponse findById(String id) {
         log.debug("Fetching user with id {}", id);
         return this.repository.findById(id)
                 .map(UserResponse::new)
@@ -58,7 +57,7 @@ public class UserPersistenceImpl implements UserPersistence {
     }
 
     @Override
-    public void updateUser(UUID id, UserRequest request) {
+    public void updateUser(String id, UserRequest request) {
         log.debug("Updating user with id {}", id);
         User user = this.getUserById(id);
 
@@ -68,7 +67,7 @@ public class UserPersistenceImpl implements UserPersistence {
     }
 
     @Override
-    public void deleteUser(UUID id, String password) {
+    public void deleteUser(String id, String password) {
         log.debug("Deleting user with id {}", id);
         User user = this.getUserById(id);
 
@@ -81,7 +80,7 @@ public class UserPersistenceImpl implements UserPersistence {
         log.debug("User with id {} deleted successfully", id);
     }
 
-    private User getUserById(UUID id) {
+    private User getUserById(String id) {
         return this.repository.findById(id)
                 .orElseThrow(() -> {
                     log.error("User with id {} not found", id);

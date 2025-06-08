@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -26,7 +25,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
     private final EventsRepository eventsRepository;
 
     @Override
-    public InscriptionResponse subscribe(UUID userId, UUID eventId) {
+    public InscriptionResponse subscribe(String userId, String eventId) {
         log.info("Subscribing user with id {} to event with id {}", userId, eventId);
 
         User user = this.getUserById(userId);
@@ -42,53 +41,53 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
     }
 
     @Override
-    public InscriptionResponse confirm(UUID inscriptionId) {
+    public InscriptionResponse confirm(String inscriptionId) {
         log.info("Confirming inscription with id {}", inscriptionId);
 
         Inscriptions inscription = this.getInscriptionById(inscriptionId);
         inscription.setStatus(StatusInscriptions.CONFIRMED);
 
-        User user = this.getUserById(UUID.fromString(inscription.getUserId()));
+        User user = this.getUserById(inscription.getUserId());
         log.debug("User found: {}", user);
-        Events event = this.getEventById(UUID.fromString(inscription.getEventId()));
+        Events event = this.getEventById(inscription.getEventId());
         log.debug("Event found: {}", event);
 
         return this.buildInscriptionResponse(inscription, user, event);
     }
 
     @Override
-    public InscriptionResponse cancel(UUID inscriptionId) {
+    public InscriptionResponse cancel(String inscriptionId) {
         log.info("Cancelling inscription with id {}", inscriptionId);
 
         Inscriptions inscription = this.getInscriptionById(inscriptionId);
         inscription.setStatus(StatusInscriptions.CANCELLED);
 
-        User user = this.getUserById(UUID.fromString(inscription.getUserId()));
+        User user = this.getUserById(inscription.getUserId());
         log.debug("User found: {}", user);
-        Events event = this.getEventById(UUID.fromString(inscription.getEventId()));
+        Events event = this.getEventById(inscription.getEventId());
         log.debug("Event found: {}", event);
 
         return this.buildInscriptionResponse(inscription, user, event);
     }
 
     @Override
-    public List<InscriptionResponse> findByUserId(UUID userId) {
+    public List<InscriptionResponse> findByUserId(String userId) {
         log.info("Finding inscriptions for user with id {}", userId);
         return this.inscriptionRepository.findByUserId(userId).stream()
                 .map(i -> {
                     User user = this.getUserById(userId);
-                    Events event = this.getEventById(UUID.fromString(i.getEventId()));
+                    Events event = this.getEventById(i.getEventId());
                     return this.buildInscriptionResponse(i, user, event);
                 })
                 .toList();
     }
 
     @Override
-    public List<InscriptionResponse> findByEventId(UUID eventId) {
+    public List<InscriptionResponse> findByEventId(String eventId) {
         log.info("Finding inscriptions for event with id {}", eventId);
         return this.inscriptionRepository.findByEventId(eventId).stream()
                 .map(i -> {
-                    User user = this.getUserById(UUID.fromString(i.getUserId()));
+                    User user = this.getUserById(i.getUserId());
                     Events event = this.getEventById(eventId);
                     return this.buildInscriptionResponse(i, user, event);
                 })
@@ -96,12 +95,12 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
     }
 
     @Override
-    public List<InscriptionResponse> listWaitingList(UUID eventId) {
+    public List<InscriptionResponse> listWaitingList(String eventId) {
         log.info("Listing waiting list for event with id {}", eventId);
         return this.inscriptionRepository.findByEventId(eventId).stream()
                 .filter(i -> i.getStatus() == StatusInscriptions.PENDING)
                 .map(i -> {
-                    User user = this.getUserById(UUID.fromString(i.getUserId()));
+                    User user = this.getUserById(i.getUserId());
                     Events event = this.getEventById(eventId);
                     return this.buildInscriptionResponse(i, user, event);
                 })
@@ -109,7 +108,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
     }
 
     @Override
-    public void checkIn(UUID inscriptionId) {
+    public void checkIn(String inscriptionId) {
         log.info("Checking in inscription with id {}", inscriptionId);
         Inscriptions inscription = this.getInscriptionById(inscriptionId);
 
@@ -124,7 +123,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
     }
 
     @Override
-    public void expireAllForEvent(UUID eventId) {
+    public void expireAllForEvent(String eventId) {
         log.info("Expiring all inscriptions for event with id {}", eventId);
         List<Inscriptions> inscriptions = this.inscriptionRepository.findByEventId(eventId);
 
@@ -139,7 +138,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
 
     private InscriptionResponse buildInscriptionResponse(Inscriptions inscription, User user, Events event) {
         return InscriptionResponse.builder()
-                .id(inscription.getId().toString())
+                .id(inscription.getId())
                 .userName(user.getName())
                 .userEmail(user.getEmail())
                 .eventTitle(event.getTitle())
@@ -150,7 +149,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
                 .build();
     }
 
-    private Inscriptions getInscriptionById(UUID id) {
+    private Inscriptions getInscriptionById(String id) {
         return this.inscriptionRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Inscription with id {} not found", id);
@@ -158,7 +157,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
                 });
     }
 
-    private User getUserById(UUID userId) {
+    private User getUserById(String userId) {
         return this.userRepository.findById(userId)
                 .orElseThrow(() -> {
                     log.error("User with id {} not found", userId);
@@ -166,7 +165,7 @@ public class InscriptionPersistenceImpl implements InscriptionPersistence {
                 });
     }
 
-    private Events getEventById(UUID eventId) {
+    private Events getEventById(String eventId) {
         return this.eventsRepository.findById(eventId)
                 .orElseThrow(() -> {
                     log.error("Event with id {} not found", eventId);

@@ -8,7 +8,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -18,42 +17,42 @@ public class InscriptionsServiceImpl implements InscriptionsService {
     private final InscriptionPersistence inscriptionPersistence;
 
     @Override
-    public InscriptionResponse subscribe(UUID userId, UUID eventId) {
+    public InscriptionResponse subscribe(String userId, String eventId) {
         return this.inscriptionPersistence.subscribe(userId, eventId);
     }
 
     @Override
-    public InscriptionResponse confirm(UUID inscriptionId) {
+    public InscriptionResponse confirm(String inscriptionId) {
         return this.inscriptionPersistence.confirm(inscriptionId);
     }
 
     @Override
-    public InscriptionResponse cancel(UUID inscriptionId) {
+    public InscriptionResponse cancel(String inscriptionId) {
         return this.inscriptionPersistence.cancel(inscriptionId);
     }
 
     @Override
-    public List<InscriptionResponse> findByUserId(UUID userId) {
+    public List<InscriptionResponse> findByUserId(String userId) {
         return this.inscriptionPersistence.findByUserId(userId);
     }
 
     @Override
-    public List<InscriptionResponse> findByEventId(UUID eventId) {
+    public List<InscriptionResponse> findByEventId(String eventId) {
         return this.inscriptionPersistence.findByEventId(eventId);
     }
 
     @Override
-    public List<InscriptionResponse> listWaitingList(UUID eventId) {
+    public List<InscriptionResponse> listWaitingList(String eventId) {
         return this.inscriptionPersistence.listWaitingList(eventId);
     }
 
     @Override
-    public void checkIn(UUID inscriptionId) {
+    public void checkIn(String inscriptionId) {
         this.inscriptionPersistence.checkIn(inscriptionId);
     }
 
     @Override
-    public void expireAllForEvent(UUID eventId) {
+    public void expireAllForEvent(String eventId) {
         this.inscriptionPersistence.expireAllForEvent(eventId);
     }
 

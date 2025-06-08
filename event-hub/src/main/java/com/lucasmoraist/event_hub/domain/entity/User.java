@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Log4j2
 @Data
@@ -21,7 +20,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    private UUID id;
+    private String id;
     private String name;
     // TODO: Criar validação para email organizacional, quando a role for ORGANIZER o email deve ser @event-hub.com e para
     //  ADMIN o email deve ser @event-hub.com.br

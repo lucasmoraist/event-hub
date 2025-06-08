@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -24,17 +23,17 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public EventsResponse findById(UUID id) {
+    public EventsResponse findById(String id) {
         return this.eventsPersistence.findById(id);
     }
 
     @Override
-    public void updateEvent(UUID id, EventsRequest request) {
+    public void updateEvent(String id, EventsRequest request) {
         this.eventsPersistence.updateEvent(id, request);
     }
 
     @Override
-    public void deleteEvent(UUID id) {
+    public void deleteEvent(String id) {
         this.eventsPersistence.deleteEvent(id);
     }
 

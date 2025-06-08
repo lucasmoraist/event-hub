@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequestMapping("/users")
 @Tag(name = "Users", description = "Operations related to user management")
@@ -44,7 +43,7 @@ public interface UserController {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @GetMapping("/{id}")
-    ResponseEntity<UserResponse> findById(@PathVariable UUID id);
+    ResponseEntity<UserResponse> findById(@PathVariable String id);
 
     @Operation(summary = "Find user by email", description = "Endpoint to retrieve a user by their email address.")
     @ApiResponses(value = {
@@ -60,7 +59,7 @@ public interface UserController {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @PatchMapping("/{id}")
-    ResponseEntity<Void> updateUser(@PathVariable UUID id, @RequestBody UserRequest request);
+    ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRequest request);
 
     @Operation(summary = "Delete user", description = "Endpoint to delete a user from the system.")
     @ApiResponses(value = {
@@ -68,6 +67,6 @@ public interface UserController {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteUser(@PathVariable UUID id, @RequestParam String password);
+    ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestParam String password);
 
 }

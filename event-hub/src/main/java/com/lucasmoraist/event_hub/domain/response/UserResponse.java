@@ -10,7 +10,7 @@ public record UserResponse(
 ) {
     public UserResponse(User user) {
         this(
-                user.getId().toString(),
+                user.getId(),
                 user.getName(),
                 user.getEmail(),
                 user.getRoles().name()

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @RestController
@@ -27,20 +26,20 @@ public class EventsControllerImpl implements EventsController {
     }
 
     @Override
-    public ResponseEntity<EventsResponse> findById(UUID id) {
+    public ResponseEntity<EventsResponse> findById(String id) {
         log.info("Finding event by ID: {}", id);
         return ResponseEntity.ok().body(this.service.findById(id));
     }
 
     @Override
-    public ResponseEntity<Void> updateEvent(UUID id, EventsRequest request) {
+    public ResponseEntity<Void> updateEvent(String id, EventsRequest request) {
         log.info("Updating event with ID: {} and request: {}", id, request);
         this.service.updateEvent(id, request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteEvent(UUID id) {
+    public ResponseEntity<Void> deleteEvent(String id) {
         log.info("Deleting event with ID: {}", id);
         this.service.deleteEvent(id);
         return ResponseEntity.ok().build();

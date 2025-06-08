@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -28,7 +27,7 @@ public class EventsPersistenceImpl implements EventsPersistence {
     }
 
     @Override
-    public EventsResponse findById(UUID id) {
+    public EventsResponse findById(String id) {
         log.debug("Fetching event with id {}", id);
         return this.repository.findById(id)
                 .map(EventsResponse::new)
@@ -39,7 +38,7 @@ public class EventsPersistenceImpl implements EventsPersistence {
     }
 
     @Override
-    public void updateEvent(UUID id, EventsRequest request) {
+    public void updateEvent(String id, EventsRequest request) {
         log.debug("Updating event with id {}", id);
         Events events = this.getEventById(id);
 
@@ -48,7 +47,7 @@ public class EventsPersistenceImpl implements EventsPersistence {
     }
 
     @Override
-    public void deleteEvent(UUID id) {
+    public void deleteEvent(String id) {
         log.debug("Deleting event with id {}", id);
         Events events = this.getEventById(id);
         this.repository.delete(events);
@@ -84,7 +83,7 @@ public class EventsPersistenceImpl implements EventsPersistence {
                 .toList();
     }
 
-    private Events getEventById(UUID id) {
+    private Events getEventById(String id) {
         return this.repository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Event with id {} not found", id);

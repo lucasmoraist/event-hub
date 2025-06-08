@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequestMapping("/events")
 @Tag(name = "Events", description = "Operations related to events management")
@@ -36,7 +35,7 @@ public interface EventsController {
             @ApiResponse(responseCode = "404", description = "Event not found")
     })
     @GetMapping("/{id}")
-    ResponseEntity<EventsResponse> findById(@PathVariable UUID id);
+    ResponseEntity<EventsResponse> findById(@PathVariable String id);
 
     @Operation(summary = "Update an event", description = "Updates the details of an existing event.")
     @ApiResponses(value = {
@@ -44,7 +43,7 @@ public interface EventsController {
             @ApiResponse(responseCode = "404", description = "Event not found")
     })
     @PatchMapping("/{id}")
-    ResponseEntity<Void> updateEvent(@PathVariable UUID id, @RequestBody EventsRequest request);
+    ResponseEntity<Void> updateEvent(@PathVariable String id, @RequestBody EventsRequest request);
 
     @Operation(summary = "Delete an event", description = "Deletes an event by its unique identifier.")
     @ApiResponses(value = {
@@ -52,7 +51,7 @@ public interface EventsController {
             @ApiResponse(responseCode = "404", description = "Event not found")
     })
     @DeleteMapping("/{id}/delete")
-    ResponseEntity<Void> deleteEvent(@PathVariable UUID id);
+    ResponseEntity<Void> deleteEvent(@PathVariable String id);
 
     @Operation(summary = "Find all events", description = "Retrieves a list of all events.")
     @ApiResponses(value = {

@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Service
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findById(UUID id) {
+    public UserResponse findById(String id) {
         return this.userPersistence.findById(id);
     }
 
@@ -39,12 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UUID id, UserRequest request) {
+    public void updateUser(String id, UserRequest request) {
         this.userPersistence.updateUser(id, request);
     }
 
     @Override
-    public void deleteUser(UUID id, String password) {
+    public void deleteUser(String id, String password) {
         this.userPersistence.deleteUser(id, password);
     }
 

@@ -2,10 +2,8 @@ package com.lucasmoraist.event_hub.domain.response;
 
 import com.lucasmoraist.event_hub.domain.entity.Events;
 
-import java.util.UUID;
-
 public record EventsResponse(
-        UUID id,
+        String id,
         String title,
         String description,
         String date,
