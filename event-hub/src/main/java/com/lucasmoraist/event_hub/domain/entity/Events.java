@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Log4j2
 @Data
@@ -23,7 +24,7 @@ public class Events {
     // Antes de salvar no banco devo validar se já existe um evento na mesma data e hora na mesma localização e se o evento tem
     // o mesmo nome
     @Id
-    private String id;
+    private UUID id;
     private String title;
     private String description;
     private LocalDate date;
