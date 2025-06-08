@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: event-hub
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: event_hub
+    redis:
+      host: localhost
+      port: 6379
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+  health:
+    redis:
+      enabled: true
+    mongodb:
+      enabled: true
