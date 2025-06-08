@@ -1,8 +1,10 @@
 package com.lucasmoraist.event_hub.domain.entity;
 
+import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Log4j2
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,5 +32,42 @@ public class Events {
     private int capacity;
     private String createdBy;
     private LocalDateTime createdAt;
+
+    public Events(EventsRequest request) {
+        this.title = request.title();
+        this.description = request.description();
+        this.date = request.date();
+        this.time = request.time();
+        this.location = request.location();
+        this.capacity = request.capacity();
+        this.createdBy = request.createdBy();
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void updateEvent(EventsRequest request) {
+        if (request.title() != null) {
+            this.title = request.title();
+        }
+        if (request.description() != null) {
+            this.description = request.description();
+        }
+        if (request.date() != null) {
+            this.date = request.date();
+        }
+        if (request.time() != null) {
+            this.time = request.time();
+        }
+        if (request.location() != null) {
+            log.error("Location cannot be updated");
+            throw new RuntimeException("Location cannot be updated");
+        }
+        if (request.capacity() < 1) {
+            this.capacity = request.capacity();
+        }
+        if (request.createdBy() != null) {
+            log.error("Created by cannot be updated");
+            throw new RuntimeException("Created by cannot be updated");
+        }
+    }
 
 }
