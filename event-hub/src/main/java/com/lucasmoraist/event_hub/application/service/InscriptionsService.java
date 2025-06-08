@@ -13,5 +13,6 @@ public interface InscriptionsService {
     List<InscriptionResponse> findByEventId(UUID eventId);
     List<InscriptionResponse> listWaitingList(UUID eventId);
     void checkIn(UUID inscriptionId);
+    // TODO: Adicionar um Schedule para verificar as inscrições expiradas a cada 1 Hora
     void expireAllForEvent(UUID eventId);
 }
