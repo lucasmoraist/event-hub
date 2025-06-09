@@ -1,7 +1,9 @@
 package com.lucasmoraist.event_hub.domain.response;
 
 import com.lucasmoraist.event_hub.domain.entity.User;
+import lombok.Builder;
 
+@Builder
 public record UserResponse(
         String id,
         String name,

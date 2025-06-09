@@ -3,6 +3,7 @@ package com.lucasmoraist.event_hub.domain.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 
 @Schema(
         description = "Request object for creating or updating a user",
@@ -15,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
                 }
                 """
 )
+@Builder
 public record UserRequest(
         @NotBlank(message = "Name is required")
         String name,
