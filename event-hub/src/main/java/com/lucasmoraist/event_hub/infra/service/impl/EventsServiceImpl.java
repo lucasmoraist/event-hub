@@ -1,6 +1,6 @@
-package com.lucasmoraist.event_hub.application.service.impl;
+package com.lucasmoraist.event_hub.infra.service.impl;
 
-import com.lucasmoraist.event_hub.application.service.EventsService;
+import com.lucasmoraist.event_hub.infra.service.EventsService;
 import com.lucasmoraist.event_hub.application.usecases.events.CreateEventUseCase;
 import com.lucasmoraist.event_hub.application.usecases.events.DeleteEventUseCase;
 import com.lucasmoraist.event_hub.application.usecases.events.FindEventById;

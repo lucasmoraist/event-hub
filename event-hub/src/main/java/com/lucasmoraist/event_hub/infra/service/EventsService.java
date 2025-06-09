@@ -1,4 +1,4 @@
-package com.lucasmoraist.event_hub.application.service;
+package com.lucasmoraist.event_hub.infra.service;
 
 import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import com.lucasmoraist.event_hub.domain.response.EventsResponse;

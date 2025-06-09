@@ -1,6 +1,6 @@
-package com.lucasmoraist.event_hub.application.service.impl;
+package com.lucasmoraist.event_hub.infra.service.impl;
 
-import com.lucasmoraist.event_hub.application.service.UserService;
+import com.lucasmoraist.event_hub.infra.service.UserService;
 import com.lucasmoraist.event_hub.application.usecases.users.DeleteUserUseCase;
 import com.lucasmoraist.event_hub.application.usecases.users.FindUserByEmailUseCase;
 import com.lucasmoraist.event_hub.application.usecases.users.FindUserByIdUseCase;

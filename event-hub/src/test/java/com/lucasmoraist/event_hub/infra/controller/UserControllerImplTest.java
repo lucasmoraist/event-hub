@@ -1,7 +1,7 @@
 package com.lucasmoraist.event_hub.infra.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lucasmoraist.event_hub.application.service.UserService;
+import com.lucasmoraist.event_hub.infra.service.UserService;
 import com.lucasmoraist.event_hub.domain.entity.User;
 import com.lucasmoraist.event_hub.domain.enums.Roles;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;

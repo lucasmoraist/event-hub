@@ -1,6 +1,6 @@
 package com.lucasmoraist.event_hub.infra.controller.impl;
 
-import com.lucasmoraist.event_hub.application.service.UserService;
+import com.lucasmoraist.event_hub.infra.service.UserService;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;
 import com.lucasmoraist.event_hub.domain.response.UserResponse;
 import com.lucasmoraist.event_hub.infra.controller.UserController;

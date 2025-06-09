@@ -1,4 +1,4 @@
-package com.lucasmoraist.event_hub.application.service;
+package com.lucasmoraist.event_hub.infra.service;
 
 import com.lucasmoraist.event_hub.domain.response.InscriptionResponse;
 
@@ -12,6 +12,5 @@ public interface InscriptionsService {
     List<InscriptionResponse> findByEventId(String eventId);
     List<InscriptionResponse> listWaitingList(String eventId);
     void checkIn(String inscriptionId);
-    // TODO: Adicionar um Schedule para verificar as inscrições expiradas a cada 1 Hora
     void expireAllForEvent(String eventId);
 }
