@@ -12,6 +12,17 @@ spring:
     redis:
       host: localhost
       port: 6379
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_EMAIL}
+    password: ${GMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 management:
   endpoints:
     web:
@@ -27,3 +38,6 @@ management:
 springdoc:
   swagger-ui:
     path: /
+app:
+  environment:
+    url: ${APP_ENVIRONMENT_URL:http://localhost:8080}
