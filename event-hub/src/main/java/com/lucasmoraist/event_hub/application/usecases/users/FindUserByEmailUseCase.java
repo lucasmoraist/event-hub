@@ -1,5 +1,6 @@
 package com.lucasmoraist.event_hub.application.usecases.users;
 
+import com.lucasmoraist.event_hub.domain.exception.NotFoundException;
 import com.lucasmoraist.event_hub.domain.response.UserResponse;
 import com.lucasmoraist.event_hub.infra.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class FindUserByEmailUseCase {
                 .map(UserResponse::new)
                 .orElseThrow(() -> {
                     log.error("User with email {} not found", email);
-                    return new RuntimeException("User not found");
+                    return new NotFoundException("User not found");
                 });
     }
 

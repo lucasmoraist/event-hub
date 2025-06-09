@@ -13,14 +13,11 @@ import org.springframework.stereotype.Service;
 public class UpdateUserUseCase {
 
     private final UserRepository repository;
+    private final GetUserById getUserById;
 
     public void execute(String id, UserRequest request) {
         log.debug("Updating user with id {}", id);
-        User user = this.repository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("User with id {} not found", id);
-                    return new RuntimeException("User not found");
-                });
+        User user = this.getUserById.execute(id);
 
         user.updateUser(request);
         this.repository.save(user);

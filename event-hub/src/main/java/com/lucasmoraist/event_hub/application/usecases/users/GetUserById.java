@@ -1,23 +1,21 @@
 package com.lucasmoraist.event_hub.application.usecases.users;
 
+import com.lucasmoraist.event_hub.domain.entity.User;
 import com.lucasmoraist.event_hub.domain.exception.NotFoundException;
-import com.lucasmoraist.event_hub.domain.response.UserResponse;
 import com.lucasmoraist.event_hub.infra.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
-public class FindUserByIdUseCase {
+public class GetUserById {
 
-    private final UserRepository repository;
+    @Autowired
+    private UserRepository repository;
 
-    public UserResponse execute(String id) {
-        log.debug("Fetching user with id {}", id);
+    public User execute(String id) {
         return this.repository.findById(id)
-                .map(UserResponse::new)
                 .orElseThrow(() -> {
                     log.error("User with id {} not found", id);
                     return new NotFoundException("User not found");
