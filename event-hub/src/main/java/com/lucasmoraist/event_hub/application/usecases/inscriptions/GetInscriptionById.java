@@ -1,6 +1,7 @@
 package com.lucasmoraist.event_hub.application.usecases.inscriptions;
 
 import com.lucasmoraist.event_hub.domain.entity.Inscriptions;
+import com.lucasmoraist.event_hub.domain.exception.NotFoundException;
 import com.lucasmoraist.event_hub.infra.repository.InscriptionsRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class GetInscriptionById {
         return this.inscriptionRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Inscription with id {} not found", id);
-                    return new RuntimeException("Inscription not found");
+                    return new NotFoundException("Inscription not found");
                 });
     }
 
