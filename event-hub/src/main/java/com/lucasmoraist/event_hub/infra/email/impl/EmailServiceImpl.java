@@ -177,7 +177,7 @@ public class EmailServiceImpl implements EmailService {
                            <strong>Local:</strong> %s</p>
 
                         <p>Clique no link abaixo para confirmar sua presença</p>
-                        <p><a href="%s/inscriptions/confirm/$s">Confirmar Presença</a></p>
+                        <p><a href="%s/inscriptions/confirm/%s">Confirmar Presença</a></p>
 
                         <p>Atenciosamente,<br>
                         Equipe de Organização</p>
