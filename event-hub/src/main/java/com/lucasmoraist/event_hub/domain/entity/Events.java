@@ -1,5 +1,6 @@
 package com.lucasmoraist.event_hub.domain.entity;
 
+import com.lucasmoraist.event_hub.domain.exception.InvalidFieldException;
 import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -56,14 +57,15 @@ public class Events {
         }
         if (request.location() != null) {
             log.error("Location cannot be updated");
-            throw new RuntimeException("Location cannot be updated");
+            throw new InvalidFieldException("Location cannot be updated");
         }
-        if (request.capacity() < 1) {
-            this.capacity = request.capacity();
+        if (request.capacity() < 0) {
+            log.error("Capacity cannot be negative");
+            throw new InvalidFieldException("Capacity cannot be negative");
         }
         if (request.createdBy() != null) {
             log.error("Created by cannot be updated");
-            throw new RuntimeException("Created by cannot be updated");
+            throw new InvalidFieldException("Created by cannot be updated");
         }
     }
 
