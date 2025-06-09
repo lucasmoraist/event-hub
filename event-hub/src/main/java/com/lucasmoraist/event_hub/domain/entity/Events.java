@@ -19,9 +19,6 @@ import java.time.LocalTime;
 @Document(collection = "events")
 public class Events {
 
-
-    // Antes de salvar no banco devo validar se já existe um evento na mesma data e hora na mesma localização e se o evento tem
-    // o mesmo nome
     @Id
     private String id;
     private String title;
