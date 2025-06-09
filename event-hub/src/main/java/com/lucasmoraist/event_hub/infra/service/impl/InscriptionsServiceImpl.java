@@ -65,7 +65,6 @@ public class InscriptionsServiceImpl implements InscriptionsService {
         this.checkInInscriptionUseCase.execute(inscriptionId);
     }
 
-    // TODO: Esse metodo deve conter um schedule para ser executado periodicamente
     @Override
     public void expireAllForEvent(String eventId) {
         this.expireAllForEventUseCase.execute(eventId);
