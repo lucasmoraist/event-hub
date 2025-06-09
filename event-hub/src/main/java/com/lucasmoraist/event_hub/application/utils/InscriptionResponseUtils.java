@@ -1,4 +1,4 @@
-package com.lucasmoraist.event_hub.application.usecases.utils;
+package com.lucasmoraist.event_hub.application.utils;
 
 import com.lucasmoraist.event_hub.domain.entity.Events;
 import com.lucasmoraist.event_hub.domain.entity.Inscriptions;
