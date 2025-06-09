@@ -1,6 +1,7 @@
 package com.lucasmoraist.event_hub.application.usecases.events;
 
 import com.lucasmoraist.event_hub.domain.entity.Events;
+import com.lucasmoraist.event_hub.domain.exception.SameEventException;
 import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import com.lucasmoraist.event_hub.infra.repository.EventsRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class CreateEventUseCase {
 
         if (count > 0) {
             log.error("Event with name {} already exists at the same date, time and location", request.title());
-            throw new IllegalArgumentException("Event with the same name, date, time and location already exists");
+            throw new SameEventException("Event with the same name, date, time and location already exists");
         }
     }
 
