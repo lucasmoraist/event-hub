@@ -1,10 +1,8 @@
 package com.lucasmoraist.event_hub.domain.request;
 
-import com.lucasmoraist.event_hub.domain.enums.Roles;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Schema(
         description = "Request object for creating or updating a user",
@@ -13,8 +11,7 @@ import jakarta.validation.constraints.NotNull;
                 {
                         "name": "John Doe",
                         "email": "john@doe.com",
-                        "password": "securePassword123",
-                        "roles": "USER"
+                        "password": "securePassword123"
                 }
                 """
 )
@@ -25,9 +22,7 @@ public record UserRequest(
         @NotBlank(message = "Email is required")
         String email,
         @NotBlank(message = "Password is required")
-        String password,
-        @NotNull(message = "Roles are required")
-        Roles roles
+        String password
 ) {
 
 }

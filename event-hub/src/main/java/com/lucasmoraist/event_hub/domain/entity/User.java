@@ -22,8 +22,6 @@ public class User {
     @Id
     private String id;
     private String name;
-    // TODO: Criar validação para email organizacional, quando a role for ORGANIZER o email deve ser @event-hub.com e para
-    //  ADMIN o email deve ser @event-hub.com.br
     @Indexed(unique = true)
     private String email;
     private String password;
@@ -35,7 +33,6 @@ public class User {
         this.email = request.email();
         this.password = request.password();
         this.createdAt = LocalDateTime.now();
-        this.roles = request.roles();
     }
 
     public void updateUser(UserRequest request) {
@@ -47,10 +44,6 @@ public class User {
         }
         if (request.password() != null) {
             this.password = request.password();
-        }
-        if (request.roles() != null) {
-            log.error("Roles cannot be updated");
-            throw new RuntimeException("Roles cannot be updated");
         }
     }
 
