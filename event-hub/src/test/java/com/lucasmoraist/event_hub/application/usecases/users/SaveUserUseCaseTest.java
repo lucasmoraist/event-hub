@@ -1,0 +1,85 @@
+package com.lucasmoraist.event_hub.application.usecases.users;
+
+import com.lucasmoraist.event_hub.domain.entity.User;
+import com.lucasmoraist.event_hub.domain.enums.Roles;
+import com.lucasmoraist.event_hub.domain.model.EmailData;
+import com.lucasmoraist.event_hub.domain.request.UserRequest;
+import com.lucasmoraist.event_hub.infra.email.EmailService;
+import com.lucasmoraist.event_hub.infra.repository.UserRepository;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
+class SaveUserUseCaseTest {
+
+    @Mock
+    UserRepository repository;
+    @Mock
+    EmailService emailService;
+    @InjectMocks
+    SaveUserUseCase saveUserUseCase;
+
+    @Test
+    @DisplayName("Should save user and send confirmation email")
+    void case01() {
+        UserRequest request = new UserRequest("John Doe", "john@event-hub.com", "123456");
+        saveUserUseCase.execute(request);
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(repository).save(userCaptor.capture());
+        assertEquals(Roles.ORGANIZER, userCaptor.getValue().getRoles());
+    }
+
+    @Test
+    @DisplayName("Should send confirmation email after saving user")
+    void shouldSaveAdminUser() {
+        UserRequest request = new UserRequest("Jane Doe", "jane@event-hub.com.br", "123456");
+        saveUserUseCase.execute(request);
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(repository).save(userCaptor.capture());
+        assertEquals(Roles.ADMIN, userCaptor.getValue().getRoles());
+    }
+
+    @Test
+    @DisplayName("Should save generic user when email does not match specific domains")
+    void shouldSaveGenericUser() {
+        UserRequest request = new UserRequest("Generic User", "user@gmail.com", "123456");
+        saveUserUseCase.execute(request);
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(repository).save(userCaptor.capture());
+        assertEquals(Roles.USER, userCaptor.getValue().getRoles());
+    }
+
+    @Test
+    @DisplayName("Should send confirmation email with correct data")
+    void shouldThrowExceptionWhenRepositoryFails() {
+        UserRequest request = new UserRequest("John Doe", "john@event-hub.com", "123456");
+        doThrow(new RuntimeException("Database error")).when(repository).save(any(User.class));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> saveUserUseCase.execute(request));
+        assertEquals("Database error", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Should throw exception when email service fails")
+    void shouldThrowExceptionWhenEmailServiceFails() {
+        UserRequest request = new UserRequest("John Doe", "john@event-hub.com", "123456");
+        doThrow(new RuntimeException("Email service error")).when(emailService).confirmEmail(any(EmailData.class));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> saveUserUseCase.execute(request));
+        assertEquals("Email service error", exception.getMessage());
+    }
+
+}
