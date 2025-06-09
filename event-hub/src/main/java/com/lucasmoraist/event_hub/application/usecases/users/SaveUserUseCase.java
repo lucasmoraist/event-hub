@@ -1,6 +1,6 @@
 package com.lucasmoraist.event_hub.application.usecases.users;
 
-import com.lucasmoraist.event_hub.application.email.EmailService;
+import com.lucasmoraist.event_hub.infra.email.EmailService;
 import com.lucasmoraist.event_hub.domain.entity.User;
 import com.lucasmoraist.event_hub.domain.model.EmailData;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;

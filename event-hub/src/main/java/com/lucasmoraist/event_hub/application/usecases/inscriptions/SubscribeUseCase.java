@@ -1,6 +1,6 @@
 package com.lucasmoraist.event_hub.application.usecases.inscriptions;
 
-import com.lucasmoraist.event_hub.application.email.EmailService;
+import com.lucasmoraist.event_hub.infra.email.EmailService;
 import com.lucasmoraist.event_hub.application.usecases.events.GetEventById;
 import com.lucasmoraist.event_hub.application.usecases.users.GetUserById;
 import com.lucasmoraist.event_hub.application.utils.InscriptionResponseUtils;

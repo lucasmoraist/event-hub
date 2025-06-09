@@ -1,6 +1,6 @@
-package com.lucasmoraist.event_hub.application.email.impl;
+package com.lucasmoraist.event_hub.infra.email.impl;
 
-import com.lucasmoraist.event_hub.application.email.EmailService;
+import com.lucasmoraist.event_hub.infra.email.EmailService;
 import com.lucasmoraist.event_hub.domain.entity.Events;
 import com.lucasmoraist.event_hub.domain.entity.Inscriptions;
 import com.lucasmoraist.event_hub.domain.entity.User;
