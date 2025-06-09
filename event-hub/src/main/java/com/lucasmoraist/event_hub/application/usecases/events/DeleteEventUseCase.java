@@ -12,20 +12,13 @@ import org.springframework.stereotype.Service;
 public class DeleteEventUseCase {
 
     private final EventsRepository repository;
+    private final GetEventById getEventById;
 
     public void execute(String id) {
         log.debug("Deleting event with id {}", id);
-        Events events = this.getEventById(id);
+        Events events = this.getEventById.execute(id);
         this.repository.delete(events);
         log.info("Event with id {} deleted successfully", id);
-    }
-
-    private Events getEventById(String id) {
-        return this.repository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Event with id {} not found", id);
-                    return new RuntimeException("Event not found");
-                });
     }
 
 }
