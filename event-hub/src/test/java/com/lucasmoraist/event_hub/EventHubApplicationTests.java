@@ -8,6 +8,7 @@ class EventHubApplicationTests {
 
 	@Test
 	void contextLoads() {
+		EventHubApplication.main(new String[] {});
 	}
 
 }
