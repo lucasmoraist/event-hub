@@ -23,7 +23,6 @@ public class CancelInscriptionUseCase {
     private final GetInscriptionById getInscriptionById;
     private final GetEventById getEventById;
 
-
     public InscriptionResponse execute(String inscriptionId) {
         log.info("Cancelling inscription with id {}", inscriptionId);
 
