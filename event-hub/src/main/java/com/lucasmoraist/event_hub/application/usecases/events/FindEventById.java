@@ -1,5 +1,6 @@
 package com.lucasmoraist.event_hub.application.usecases.events;
 
+import com.lucasmoraist.event_hub.domain.exception.NotFoundException;
 import com.lucasmoraist.event_hub.domain.response.EventsResponse;
 import com.lucasmoraist.event_hub.infra.repository.EventsRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class FindEventById {
                 .map(EventsResponse::new)
                 .orElseThrow(() -> {
                     log.error("Event with id {} not found", id);
-                    return new RuntimeException("Event not found");
+                    return new NotFoundException("Event not found");
                 });
     }
 
