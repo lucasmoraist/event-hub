@@ -16,8 +16,8 @@ spring:
       fail-fast: true
     function:
       definition: >
-        fromUserService;
-        fromInscriptionService;
+        confirmEmailConsumer;
+        confirmInscriptionConsumer;
     stream:
       default-binder: rabbit
       bindings:
@@ -60,3 +60,10 @@ spring:
           auth: true
           starttls:
             enable: true
+logging:
+  level:
+    com.event_hub: DEBUG
+
+app:
+  environment:
+    url: ${APP_ENVIRONMENT_URL:http://localhost:8080}

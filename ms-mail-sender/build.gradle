@@ -44,6 +44,11 @@ dependencies {
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Logs
+	implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+	implementation 'ch.qos.logback:logback-core:1.5.17'
+	implementation 'ch.qos.logback:logback-classic:1.5.17'
 }
 
 dependencyManagement {
