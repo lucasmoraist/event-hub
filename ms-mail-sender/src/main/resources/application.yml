@@ -1,0 +1,31 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: ms-mail-sender
+  main:
+    allow-bean-definition-overriding: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  cloud:
+    config:
+      fail-fast: true
+    stream:
+      bindings:
+      rabbit:
+        bindings:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_EMAIL}
+    password: ${GMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
