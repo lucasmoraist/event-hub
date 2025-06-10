@@ -12,5 +12,4 @@ public interface InscriptionsService {
     List<InscriptionResponse> findByEventId(String eventId);
     List<InscriptionResponse> listWaitingList(String eventId);
     void checkIn(String inscriptionId);
-    void expireAllForEvent(String eventId);
 }

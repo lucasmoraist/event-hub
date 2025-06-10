@@ -4,7 +4,6 @@ import com.lucasmoraist.event_hub.infra.service.InscriptionsService;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CancelInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CheckInInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.ConfirmInscriptionUseCase;
-import com.lucasmoraist.event_hub.application.usecases.inscriptions.ExpireAllForEventUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.FindInscriptionByEventIdUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.FindInscriptionByUserIdUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.ListWaitingListUseCase;
@@ -24,7 +23,6 @@ public class InscriptionsServiceImpl implements InscriptionsService {
     private final CancelInscriptionUseCase cancelInscriptionUseCase;
     private final CheckInInscriptionUseCase checkInInscriptionUseCase;
     private final ConfirmInscriptionUseCase confirmInscriptionUseCase;
-    private final ExpireAllForEventUseCase expireAllForEventUseCase;
     private final FindInscriptionByEventIdUseCase findInscriptionByEventIdUseCase;
     private final FindInscriptionByUserIdUseCase findInscriptionByUserIdUseCase;
     private final ListWaitingListUseCase listWaitingListUseCase;
@@ -63,11 +61,6 @@ public class InscriptionsServiceImpl implements InscriptionsService {
     @Override
     public void checkIn(String inscriptionId) {
         this.checkInInscriptionUseCase.execute(inscriptionId);
-    }
-
-    @Override
-    public void expireAllForEvent(String eventId) {
-        this.expireAllForEventUseCase.execute(eventId);
     }
 
 }
