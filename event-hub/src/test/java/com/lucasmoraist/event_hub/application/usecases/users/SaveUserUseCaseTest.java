@@ -2,9 +2,8 @@ package com.lucasmoraist.event_hub.application.usecases.users;
 
 import com.lucasmoraist.event_hub.domain.entity.User;
 import com.lucasmoraist.event_hub.domain.enums.Roles;
-import com.lucasmoraist.event_hub.domain.model.EmailData;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;
-import com.lucasmoraist.event_hub.infra.email.EmailService;
+import com.lucasmoraist.event_hub.infra.queue.producer.EventHubProducer;
 import com.lucasmoraist.event_hub.infra.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,7 +25,7 @@ class SaveUserUseCaseTest {
     @Mock
     UserRepository repository;
     @Mock
-    EmailService emailService;
+    EventHubProducer producer;
     @InjectMocks
     SaveUserUseCase saveUserUseCase;
 
@@ -37,6 +37,10 @@ class SaveUserUseCaseTest {
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(repository).save(userCaptor.capture());
+        verify(producer, times(1)).sendMessage(
+                any(),
+                any()
+        );
         assertEquals(Roles.ORGANIZER, userCaptor.getValue().getRoles());
     }
 
@@ -48,6 +52,10 @@ class SaveUserUseCaseTest {
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(repository).save(userCaptor.capture());
+        verify(producer, times(1)).sendMessage(
+                any(),
+                any()
+        );
         assertEquals(Roles.ADMIN, userCaptor.getValue().getRoles());
     }
 
@@ -59,6 +67,10 @@ class SaveUserUseCaseTest {
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(repository).save(userCaptor.capture());
+        verify(producer, times(1)).sendMessage(
+                any(),
+                any()
+        );
         assertEquals(Roles.USER, userCaptor.getValue().getRoles());
     }
 
@@ -70,16 +82,6 @@ class SaveUserUseCaseTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> saveUserUseCase.execute(request));
         assertEquals("Database error", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("Should throw exception when email service fails")
-    void shouldThrowExceptionWhenEmailServiceFails() {
-        UserRequest request = new UserRequest("John Doe", "john@event-hub.com", "123456");
-        doThrow(new RuntimeException("Email service error")).when(emailService).confirmEmail(any(EmailData.class));
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> saveUserUseCase.execute(request));
-        assertEquals("Email service error", exception.getMessage());
     }
 
 }

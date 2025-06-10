@@ -1,4 +1,4 @@
-package com.lucasmoraist.event_hub.application.service;
+package com.lucasmoraist.event_hub.infra.service;
 
 import com.lucasmoraist.event_hub.infra.service.impl.UserServiceImpl;
 import com.lucasmoraist.event_hub.application.usecases.users.DeleteUserUseCase;

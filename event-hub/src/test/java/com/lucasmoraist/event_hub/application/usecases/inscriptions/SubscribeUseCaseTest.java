@@ -8,7 +8,7 @@ import com.lucasmoraist.event_hub.domain.entity.User;
 import com.lucasmoraist.event_hub.domain.enums.StatusInscriptions;
 import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;
-import com.lucasmoraist.event_hub.infra.email.EmailService;
+import com.lucasmoraist.event_hub.infra.queue.producer.EventHubProducer;
 import com.lucasmoraist.event_hub.infra.repository.InscriptionsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +37,7 @@ class SubscribeUseCaseTest {
     @Mock
     GetEventById getEventById;
     @Mock
-    EmailService emailService;
+    EventHubProducer producer;
     @InjectMocks
     SubscribeUseCase subscribeUseCase;
 
@@ -97,7 +97,8 @@ class SubscribeUseCaseTest {
                 () -> verify(inscriptionRepository, times(1)).save(any(Inscriptions.class)),
                 () -> verify(getUserById, times(1)).execute(userId),
                 () -> verify(getEventById, times(1)).execute(eventId),
-                () -> verify(emailService, times(1)).confirmInscription(any(Inscriptions.class))
+                () -> verify(producer, times(1)).sendMessage(any(), any())
         );
     }
+
 }

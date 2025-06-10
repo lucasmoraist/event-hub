@@ -1,10 +1,9 @@
-package com.lucasmoraist.event_hub.application.service;
+package com.lucasmoraist.event_hub.infra.service;
 
 import com.lucasmoraist.event_hub.infra.service.impl.InscriptionsServiceImpl;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CancelInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CheckInInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.ConfirmInscriptionUseCase;
-import com.lucasmoraist.event_hub.application.usecases.inscriptions.ExpireAllForEventUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.FindInscriptionByEventIdUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.FindInscriptionByUserIdUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.ListWaitingListUseCase;
@@ -34,8 +33,6 @@ class InscriptionsServiceImplTest {
     CheckInInscriptionUseCase checkInInscriptionUseCase;
     @Mock
     ConfirmInscriptionUseCase confirmInscriptionUseCase;
-    @Mock
-    ExpireAllForEventUseCase expireAllForEventUseCase;
     @Mock
     FindInscriptionByEventIdUseCase findInscriptionByEventIdUseCase;
     @Mock
@@ -193,15 +190,6 @@ class InscriptionsServiceImplTest {
 
         verify(checkInInscriptionUseCase, times(1))
                 .execute(inscriptionsId);
-    }
-
-    @Test
-    @DisplayName("Test expireAllForEvent method")
-    void case08() {
-        inscriptionsService.expireAllForEvent(eventId);
-
-        verify(expireAllForEventUseCase, times(1))
-                .execute(eventId);
     }
 
 }
