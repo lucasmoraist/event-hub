@@ -8,6 +8,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
+    @Value("${app.environment.url}")
+    private String url;
     private final JavaMailSender mailSender;
 
     @Override
@@ -28,8 +31,8 @@ public class EmailServiceImpl implements EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
             helper.setTo(data.to());
-            helper.setSubject(String.format("Olá %s! Confirme seu e-mail.", data.name()));
-            helper.setText(EmailMessageUtils.buildMessageToConfirm(data), true);
+            helper.setSubject("Confirme seu e-mail!");
+            helper.setText(EmailMessageUtils.buildMessageToConfirm(data, url), true);
             log.debug("Sending confirmation email to: {}", data.to());
 
             mailSender.send(message);
@@ -49,7 +52,7 @@ public class EmailServiceImpl implements EmailService {
 
             helper.setTo(data.userEmail());
             helper.setSubject("Confirme sua presença no evento!");
-            helper.setText(EmailMessageUtils.buildMessageToInscription(data), true);
+            helper.setText(EmailMessageUtils.buildMessageToInscription(data, url), true);
             log.debug("Sending inscription confirmation email to: {}", data.userEmail());
 
             mailSender.send(message);
