@@ -19,7 +19,7 @@ public class MailSenderConsumer {
     private final OrchestratorMessage orchestratorMessage;
 
     @Bean
-    public Consumer<Message<ConfirmEmailData>> confirmEmailConsumer() {
+    public Consumer<Message<ConfirmEmailData>> fromConfirmEmailConsumer() {
         try {
             return orchestratorMessage::orchestratorMessageConfirmEmail;
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class MailSenderConsumer {
     }
 
     @Bean
-    public Consumer<Message<ConfirmInscriptionData>> confirmInscriptionConsumer() {
+    public Consumer<Message<ConfirmInscriptionData>> fromConfirmInscriptionConsumer() {
         try {
             return orchestratorMessage::orchestratorMessageConfirmInscription;
         } catch (Exception e) {
