@@ -2,6 +2,7 @@ package com.event_hub.ms_mail_sender.queue.consumer;
 
 import com.event_hub.ms_mail_sender.dto.ConfirmEmailData;
 import com.event_hub.ms_mail_sender.dto.ConfirmInscriptionData;
+import com.event_hub.ms_mail_sender.exceptions.ConsumerException;
 import com.event_hub.ms_mail_sender.message.OrchestratorMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,10 +23,9 @@ public class MailSenderConsumer {
     public Consumer<Message<ConfirmEmailData>> fromConfirmEmailConsumer() {
         try {
             return orchestratorMessage::orchestratorMessageConfirmEmail;
-        } catch (Exception e) {
-            // TODO: Implementar exceção personalizada
-            log.error("Error creating consumer for orchestrator messages from gateway sandbox", e);
-            throw new RuntimeException("Failed to create consumer for orchestrator messages from gateway sandbox", e);
+        } catch (ConsumerException e) {
+            log.error("Error to consume and process message", e);
+            throw new ConsumerException("Error to consume and process message", e);
         }
     }
 
@@ -33,10 +33,9 @@ public class MailSenderConsumer {
     public Consumer<Message<ConfirmInscriptionData>> fromConfirmInscriptionConsumer() {
         try {
             return orchestratorMessage::orchestratorMessageConfirmInscription;
-        } catch (Exception e) {
-            // TODO: Implementar exceção personalizada
-            log.error("Error creating consumer for orchestrator messages from inscription service", e);
-            throw new RuntimeException("Failed to create consumer for orchestrator messages from inscription service", e);
+        } catch (ConsumerException e) {
+            log.error("Error to consume and process message", e);
+            throw new ConsumerException("Error to consume and process message", e);
         }
     }
 

@@ -3,6 +3,7 @@ package com.event_hub.ms_mail_sender.email.impl;
 import com.event_hub.ms_mail_sender.dto.ConfirmEmailData;
 import com.event_hub.ms_mail_sender.dto.ConfirmInscriptionData;
 import com.event_hub.ms_mail_sender.email.EmailService;
+import com.event_hub.ms_mail_sender.exceptions.EmailException;
 import com.event_hub.ms_mail_sender.utils.EmailMessageUtils;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -38,9 +39,8 @@ public class EmailServiceImpl implements EmailService {
             mailSender.send(message);
             log.info("Confirmation email sent successfully to: {}", data.to());
         } catch (MessagingException e) {
-            // TODO: Implementar exceção personalizada
             log.error("Error creating email message", e);
-            throw new RuntimeException(e);
+            throw new EmailException("Error creating email message", e);
         }
     }
 
@@ -58,9 +58,8 @@ public class EmailServiceImpl implements EmailService {
             mailSender.send(message);
             log.info("Inscription confirmation email sent successfully to: {}", data.userEmail());
         } catch (MessagingException e) {
-            // TODO: Implementar exceção personalizada
             log.error("Error creating email message for inscription confirmation", e);
-            throw new RuntimeException(e);
+            throw new EmailException("Error creating email message for inscription confirmation", e);
         }
     }
 
