@@ -8,6 +8,7 @@ class MsMailSenderApplicationTests {
 
 	@Test
 	void contextLoads() {
+		MsMailSenderApplication.main(new String[] {});
 	}
 
 }
