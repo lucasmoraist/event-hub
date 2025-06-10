@@ -3,15 +3,11 @@ package com.event_hub.ms_mail_sender.utils;
 import com.event_hub.ms_mail_sender.dto.ConfirmEmailData;
 import com.event_hub.ms_mail_sender.dto.ConfirmInscriptionData;
 import lombok.experimental.UtilityClass;
-import org.springframework.beans.factory.annotation.Value;
 
 @UtilityClass
 public class EmailMessageUtils {
 
-    @Value("${app.environment.url}")
-    private String url;
-
-    public static String buildMessageToConfirm(ConfirmEmailData data) {
+    public static String buildMessageToConfirm(ConfirmEmailData data, String url) {
         return String.format("""
                 <!DOCTYPE html>
                 <html lang="pt-BR">
@@ -65,7 +61,7 @@ public class EmailMessageUtils {
                 """, data.name(), url, data.to());
     }
 
-    public static String buildMessageToInscription(ConfirmInscriptionData data) {
+    public static String buildMessageToInscription(ConfirmInscriptionData data, String url) {
         return String.format("""
                         <!DOCTYPE html>
                         <html lang="pt-BR">
@@ -122,7 +118,7 @@ public class EmailMessageUtils {
                             </div>
                         </body>
                         </html>
-                        """, data.userName(), data.userEmail(), data.eventDate(), data.eventTime(), data.eventLocation(), url,
+                        """, data.userName(), data.eventTitle(), data.eventDate(), data.eventTime(), data.eventLocation(), url,
                 data.inscriptionId());
     }
 
