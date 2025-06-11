@@ -8,6 +8,7 @@ class MsEventsApplicationTests {
 
 	@Test
 	void contextLoads() {
+		MsEventsApplication.main(new String[] {});
 	}
 
 }
