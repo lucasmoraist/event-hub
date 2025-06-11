@@ -8,6 +8,7 @@ class MsUserApplicationTests {
 
 	@Test
 	void contextLoads() {
+		MsUserApplication.main(new String[] {});
 	}
 
 }
