@@ -1,0 +1,1 @@
+1. Criar um event listener para escutar sempre que for criado um evento, enviar email para um grupo de pessoas
