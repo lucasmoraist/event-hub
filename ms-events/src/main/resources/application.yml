@@ -1,0 +1,29 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: ms-events
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: events_event_hub
+      auto-index-creation: true
+    redis:
+      host: localhost
+      port: 6379
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+  health:
+    redis:
+      enabled: true
+    mongodb:
+      enabled: true
+springdoc:
+  swagger-ui:
+    path: /
