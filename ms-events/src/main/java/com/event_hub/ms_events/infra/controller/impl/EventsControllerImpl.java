@@ -1,0 +1,66 @@
+package com.event_hub.ms_events.infra.controller.impl;
+
+import com.event_hub.ms_events.application.service.EventsService;
+import com.event_hub.ms_events.infra.controller.EventsController;
+import com.event_hub.ms_events.infra.controller.request.EventsRequest;
+import com.event_hub.ms_events.infra.controller.response.EventsResponse;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@Log4j2
+@RestController
+public class EventsControllerImpl implements EventsController {
+
+    @Autowired
+    private EventsService service;
+
+    @Override
+    public ResponseEntity<Void> createEvent(EventsRequest request) {
+        log.info("Creating event with request: {}", request);
+        this.service.createEvent(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<EventsResponse> findById(String id) {
+        log.info("Finding event by ID: {}", id);
+        return ResponseEntity.ok().body(this.service.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<Void> updateEvent(String id, EventsRequest request) {
+        log.info("Updating event with ID: {} and request: {}", id, request);
+        this.service.updateEvent(id, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteEvent(String id) {
+        log.info("Deleting event with ID: {}", id);
+        this.service.deleteEvent(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<List<EventsResponse>> findAll() {
+        log.info("Listing all events");
+        return ResponseEntity.ok().body(this.service.findAll());
+    }
+
+    @Override
+    public ResponseEntity<List<EventsResponse>> listUpComing() {
+        log.info("Listing upcoming events");
+        return ResponseEntity.ok().body(this.service.listUpComing());
+    }
+
+    @Override
+    public ResponseEntity<List<EventsResponse>> listAvailableEvents() {
+        log.info("Listing available events");
+        return ResponseEntity.ok().body(this.service.listAvailableEvents());
+    }
+
+}
