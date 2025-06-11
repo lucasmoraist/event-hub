@@ -1,6 +1,6 @@
-package com.lucasmoraist.event_hub.infra.service.impl;
+package com.lucasmoraist.event_hub.application.service.impl;
 
-import com.lucasmoraist.event_hub.infra.service.UserService;
+import com.lucasmoraist.event_hub.application.service.UserService;
 import com.lucasmoraist.event_hub.application.usecases.users.DeleteUserUseCase;
 import com.lucasmoraist.event_hub.application.usecases.users.FindUserByEmailUseCase;
 import com.lucasmoraist.event_hub.application.usecases.users.FindUserByIdUseCase;
@@ -9,6 +9,8 @@ import com.lucasmoraist.event_hub.application.usecases.users.SaveUserUseCase;
 import com.lucasmoraist.event_hub.application.usecases.users.UpdateUserUseCase;
 import com.lucasmoraist.event_hub.domain.request.UserRequest;
 import com.lucasmoraist.event_hub.domain.response.UserResponse;
+import com.lucasmoraist.event_hub.infra.client.UserClient;
+import feign.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,16 @@ public class UserServiceImpl implements UserService {
     private final ListUsersUseCase listUsersUseCase;
     private final SaveUserUseCase saveUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final UserClient userClient;
 
     @Override
     public void saveUser(UserRequest request) {
-        this.saveUserUseCase.execute(request);
+        Response response = this.userClient.saveUser(request);
+
+        if (response.status() > 300) {
+            log.error("Failed to save user: {}", response.reason());
+            throw new RuntimeException("Failed to save user");
+        }
     }
 
     @Override

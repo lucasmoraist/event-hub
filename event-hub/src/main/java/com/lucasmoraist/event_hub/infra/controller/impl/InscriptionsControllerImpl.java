@@ -1,6 +1,6 @@
 package com.lucasmoraist.event_hub.infra.controller.impl;
 
-import com.lucasmoraist.event_hub.infra.service.InscriptionsService;
+import com.lucasmoraist.event_hub.application.service.InscriptionsService;
 import com.lucasmoraist.event_hub.domain.response.InscriptionResponse;
 import com.lucasmoraist.event_hub.infra.controller.InscriptionsController;
 import lombok.extern.log4j.Log4j2;

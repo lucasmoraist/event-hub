@@ -1,6 +1,6 @@
-package com.lucasmoraist.event_hub.infra.service.impl;
+package com.lucasmoraist.event_hub.application.service.impl;
 
-import com.lucasmoraist.event_hub.infra.service.InscriptionsService;
+import com.lucasmoraist.event_hub.application.service.InscriptionsService;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CancelInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.CheckInInscriptionUseCase;
 import com.lucasmoraist.event_hub.application.usecases.inscriptions.ConfirmInscriptionUseCase;

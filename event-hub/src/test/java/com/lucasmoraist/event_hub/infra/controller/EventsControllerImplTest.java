@@ -2,7 +2,7 @@ package com.lucasmoraist.event_hub.infra.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lucasmoraist.event_hub.infra.service.EventsService;
+import com.lucasmoraist.event_hub.application.service.EventsService;
 import com.lucasmoraist.event_hub.domain.entity.Events;
 import com.lucasmoraist.event_hub.domain.request.EventsRequest;
 import com.lucasmoraist.event_hub.domain.response.EventsResponse;

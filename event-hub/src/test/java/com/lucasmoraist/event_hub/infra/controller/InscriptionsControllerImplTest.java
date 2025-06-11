@@ -1,6 +1,6 @@
 package com.lucasmoraist.event_hub.infra.controller;
 
-import com.lucasmoraist.event_hub.infra.service.InscriptionsService;
+import com.lucasmoraist.event_hub.application.service.InscriptionsService;
 import com.lucasmoraist.event_hub.domain.enums.StatusInscriptions;
 import com.lucasmoraist.event_hub.domain.response.InscriptionResponse;
 import org.junit.jupiter.api.BeforeEach;

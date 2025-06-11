@@ -66,6 +66,6 @@ management:
 springdoc:
   swagger-ui:
     path: /
-app:
-  environment:
-    url: ${APP_ENVIRONMENT_URL:http://localhost:8080}
+microservice:
+  endpoint:
+    user: http://localhost:8082/users

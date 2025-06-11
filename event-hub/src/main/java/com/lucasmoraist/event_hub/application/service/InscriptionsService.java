@@ -1,4 +1,4 @@
-package com.lucasmoraist.event_hub.infra.service;
+package com.lucasmoraist.event_hub.application.service;
 
 import com.lucasmoraist.event_hub.domain.response.InscriptionResponse;
 
