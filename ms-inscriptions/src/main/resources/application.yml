@@ -1,0 +1,46 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: ms-inscriptions
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: inscriptions_event_hub
+      auto-index-creation: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  cloud:
+    config:
+      fail-fast: true
+    stream:
+      bindings:
+        toConfirmInscriptionConsumer-out-0:
+          destination: confirmInscription
+          content-type: application/json
+          group: ${spring.application.name}
+      rabbit:
+        bindings:
+          toConfirmInscriptionConsumer-out-0:
+            producer:
+              transacted: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+  health:
+    redis:
+      enabled: true
+    mongodb:
+      enabled: true
+springdoc:
+  swagger-ui:
+    path: /
