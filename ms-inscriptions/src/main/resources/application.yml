@@ -44,3 +44,8 @@ management:
 springdoc:
   swagger-ui:
     path: /
+
+microservice:
+  endpoint:
+    user: http://localhost:8082/users
+    events: http://localhost:8083/events
