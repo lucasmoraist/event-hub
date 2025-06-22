@@ -21,7 +21,7 @@ public class CheckInInscriptionUseCase {
         Inscriptions inscription = this.getInscriptionById.execute(inscriptionId);
         log.debug("Inscription found: {}", inscription);
 
-        inscription.checkIn(StatusInscriptions.CHECKED_IN);
+        inscription.checkIn(inscription.getStatus());
         this.inscriptionRepository.save(inscription);
 
         log.info("Inscription with id {} checked in successfully", inscriptionId);
