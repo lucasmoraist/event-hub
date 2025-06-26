@@ -49,3 +49,8 @@ microservice:
   endpoint:
     user: http://localhost:8082/users
     events: http://localhost:8083/events
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
